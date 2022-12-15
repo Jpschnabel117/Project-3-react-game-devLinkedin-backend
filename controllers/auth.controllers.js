@@ -3,7 +3,7 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const signupController = (req, res, next) => {
-  if (!req.body.email || !req.body.password || !req.body.name) {
+  if (!req.body.email || !req.body.password || !req.body.displayName) {
     return res.status(400).json({
       error: {
         message: "Missing email,name, or password",
@@ -20,7 +20,7 @@ const signupController = (req, res, next) => {
       return User.create({
         email: req.body.email,
         password: hashedpassword,
-        name: req.body.name,
+        displayName: req.body.displayName,
       });
     })
     .then((createdUser) => {
@@ -60,7 +60,7 @@ const loginController = (req, res, next) => {
 
       const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
         algorithm: "HS256",
-        expiresIn: "6h",
+        expiresIn: "24h",
       });
 
       res.json({
