@@ -54,7 +54,7 @@ const loginController = (req, res, next) => {
       }
       const payload = {
         _id: myUser._id,
-        name: myUser.name,
+        displayName: myUser.displayName,
         email: myUser.email,
       };
 
