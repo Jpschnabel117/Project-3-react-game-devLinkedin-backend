@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,8 +8,8 @@ const cors = require("cors");
 const authRouter = require("./routes/auth.routes");
 const projectRouter = require("./routes/project.routes");
 // const jobRouter = require("./routes/job.routes");
-// const userRouter = require("./routes/user.routes")
- const { isAuthenticated } = require("./middleware/jwt.middleware");
+const userRouter = require("./routes/user.routes");
+const { isAuthenticated } = require("./middleware/jwt.middleware");
 
 const app = express();
 
@@ -23,12 +23,10 @@ app.use(
 
 app.use(express.json());
 
-
 app.use("/api", projectRouter); //
 //app.use("/api", isAuthenticated, jobRouter); //
-//app.use("/api", userRouter); 
+app.use("/api", userRouter);
 app.use("/auth", authRouter);
-
 
 mongoose
   .connect(process.env.MONGODB_URI)

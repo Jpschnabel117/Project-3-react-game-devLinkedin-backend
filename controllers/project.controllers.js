@@ -58,7 +58,7 @@ const putProjectController = (req, res, next) => {
       res.send(updatedProject);
     })
     .catch((err) => res.send(err));
-}; // working 
+}; // update this
 
 const deleteProjectController = (req, res, next) => {
   Project.findByIdAndDelete(req.params.projectId)
