@@ -44,9 +44,8 @@ const projectSchema = new Schema(
     comments: [], //placeholder until i make comment model, or controller route for updating it
     jobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
     upvotes: Number, //placeholder until i make a upvote model, or controller route for updating it
-    favorites: Number, //placeholder until i make a favorites model, or controller route for updating it
     hiring: Boolean,
-    updated: Date,
+    updated: String,
   },
   {
     timestamps: true,

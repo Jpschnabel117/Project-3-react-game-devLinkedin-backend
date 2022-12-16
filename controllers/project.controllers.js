@@ -4,7 +4,7 @@ const createProjectController = (req, res, next) => {
   Project.create({
     title: req.body.title,
     description: {
-      short: req.body.description.short, //might just be req.body.short    depending on front end input i think
+      short: req.body.description.short,
       long: req.body.description.long,
     },
     tech: {
@@ -19,7 +19,6 @@ const createProjectController = (req, res, next) => {
       discord: req.body.links.discord,
     },
     upvotes: 0,
-    favorites: 0,
     hiring: req.body.hiring,
   })
     .then((createdProject) => {
@@ -46,6 +45,8 @@ const getProjectIdController = (req, res, next) => {
 
 const putProjectController = (req, res, next) => {
   //update this for new model
+  let currentDate = new Date();
+  let timeStamp = currentDate.getTime();
   Project.findOneAndUpdate(
     { _id: req.params.projectId, owner: req.payload._id },
     {
@@ -64,6 +65,7 @@ const putProjectController = (req, res, next) => {
         patreon: req.body.links.patreon,
         discord: req.body.links.discord,
       },
+      updated: timeStamp,
       //comments: req.body.comments, // seperate controller route
       //jobs seperate controller
     },
@@ -74,12 +76,50 @@ const putProjectController = (req, res, next) => {
       res.send(updatedProject);
     })
     .catch((err) => res.send(err));
-}; // update this
+}; // working
+
+const putUpdateUpvotes = (req, res, next) => {
+  Project.findOneAndUpdate(
+    { _id: req.params.projectId },
+    {
+      upvotes: req.body.upvotes,
+    },
+    { new: true }
+  )
+    .then((updatedProject) => {
+      console.log(updatedProject);
+      res.send(updatedProject);
+    })
+    .catch((err) => res.send(err));
+}; // working
+
+const putUpdateHiring = (req, res, next) => {
+  Project.findOneAndUpdate(
+    { _id: req.params.projectId, owner: req.payload._id },
+    {
+      hiring: req.body.hiring,
+    },
+    { new: true }
+  )
+    .then((updatedProject) => {
+      console.log(updatedProject);
+      res.send(updatedProject);
+    })
+    .catch((err) => res.send(err));
+}; // working
 
 const deleteProjectController = (req, res, next) => {
-  Project.findByIdAndDelete(req.params.projectId)
-    .then(() => {
-      res.send("successfully deleted");
+  Project.findOneAndDelete({
+    _id: req.params.projectId,
+    owner: req.payload._id,
+  })
+    .then((deletedProject) => {
+      if (deletedProject) {
+        console.log("successfully deleted project", deletedProject);
+      } else {
+        res.send("unauthorized to delete this project");
+      }
+      console.log(deletedProject);
     })
     .catch((err) => res.send(err));
 }; // working
@@ -90,4 +130,6 @@ module.exports = {
   getProjectIdController,
   putProjectController,
   deleteProjectController,
+  putUpdateUpvotes,
+  putUpdateHiring,
 };
