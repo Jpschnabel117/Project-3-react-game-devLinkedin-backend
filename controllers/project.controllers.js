@@ -1,6 +1,5 @@
 const Project = require("../models/project.model");
 
-//working
 const createProjectController = (req, res, next) => {
   Project.create({
     title: req.body.title,
@@ -27,7 +26,7 @@ const createProjectController = (req, res, next) => {
       res.send(createdProject);
     })
     .catch((err) => res.send(err));
-};
+}; // working
 
 const getProjectController = (req, res, next) => {
   Project.find()
@@ -35,7 +34,7 @@ const getProjectController = (req, res, next) => {
       res.send(foundProjectsArray);
     })
     .catch((err) => res.send(err));
-};
+}; // working
 
 const getProjectIdController = (req, res, next) => {
   Project.findById(req.params.projectId)
@@ -43,31 +42,36 @@ const getProjectIdController = (req, res, next) => {
       res.send(foundProject);
     })
     .catch((err) => res.send(err));
-};
+}; // working
 
-//const putProjectController = (req, res, next) => {  //update this for new model
-//   Project.findByIdAndUpdate(
-//     req.params.projectId,
-//     {
-//       title: req.body.title,
-//       description: req.body.description,
-//     },
-//     { new: true }
-//   )
-//     .then((updatedProject) => {
-//       res.send(updatedProject);
-//     })
-//     .catch((err) => res.send(err));
-// };
+const putProjectController = (req, res, next) => {
+  //update this for new model
+  Project.findByIdAndUpdate(
+    req.params.projectId,
+    {
+      title: req.body.title,
+      description: req.body.description,
+    },
+    { new: true }
+  )
+    .then((updatedProject) => {
+      res.send(updatedProject);
+    })
+    .catch((err) => res.send(err));
+}; // working 
 
 const deleteProjectController = (req, res, next) => {
-  Project.findByIdAndDelete(req.params.projectId).catch((err) => res.send(err));
-};
+  Project.findByIdAndDelete(req.params.projectId)
+    .then(() => {
+      res.send("successfully deleted");
+    })
+    .catch((err) => res.send(err));
+}; // working
 
 module.exports = {
   createProjectController,
   getProjectController,
   getProjectIdController,
-  // putProjectController,
+  putProjectController,
   deleteProjectController,
 };
