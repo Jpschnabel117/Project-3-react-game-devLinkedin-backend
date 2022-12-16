@@ -1,0 +1,73 @@
+const Project = require("../models/project.model");
+
+//working
+const createProjectController = (req, res, next) => {
+  Project.create({
+    title: req.body.title,
+    description: {
+      short: req.body.description.short, //might just be req.body.short    depending on front end input i think
+      long: req.body.description.long,
+    },
+    tech: {
+      engines: req.body.tech.engines,
+      languages: req.body.tech.languages,
+    },
+    owner: req.payload._id,
+    links: {
+      github: req.body.links.github,
+      steam: req.body.links.steam,
+      patreon: req.body.links.patreon,
+      discord: req.body.links.discord,
+    },
+    upvotes: 0,
+    favorites: 0,
+    hiring: req.body.hiring,
+  })
+    .then((createdProject) => {
+      res.send(createdProject);
+    })
+    .catch((err) => res.send(err));
+};
+
+const getProjectController = (req, res, next) => {
+  Project.find()
+    .then((foundProjectsArray) => {
+      res.send(foundProjectsArray);
+    })
+    .catch((err) => res.send(err));
+};
+
+const getProjectIdController = (req, res, next) => {
+  Project.findById(req.params.projectId)
+    .then((foundProject) => {
+      res.send(foundProject);
+    })
+    .catch((err) => res.send(err));
+};
+
+//const putProjectController = (req, res, next) => {  //update this for new model
+//   Project.findByIdAndUpdate(
+//     req.params.projectId,
+//     {
+//       title: req.body.title,
+//       description: req.body.description,
+//     },
+//     { new: true }
+//   )
+//     .then((updatedProject) => {
+//       res.send(updatedProject);
+//     })
+//     .catch((err) => res.send(err));
+// };
+
+const deleteProjectController = (req, res, next) => {
+  Project.findByIdAndDelete(req.params.projectId).catch((err) => res.send(err));
+};
+
+module.exports = {
+  createProjectController,
+  getProjectController,
+  getProjectIdController,
+  // putProjectController,
+  deleteProjectController,
+};

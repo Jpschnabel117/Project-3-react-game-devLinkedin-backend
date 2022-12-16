@@ -6,7 +6,10 @@ const cors = require("cors");
 
 //routers here
 const authRouter = require("./routes/auth.routes");
-// const { isAuthenticated } = require("./middleware/jwt.middleware");
+const projectRouter = require("./routes/project.routes");
+// const jobRouter = require("./routes/job.routes");
+// const userRouter = require("./routes/user.routes")
+ const { isAuthenticated } = require("./middleware/jwt.middleware");
 
 const app = express();
 
@@ -21,8 +24,9 @@ app.use(
 app.use(express.json());
 
 
-//app.use("/api", isAuthenticated, projectRouter); //
-//app.use("/api", isAuthenticated, taskRouter); //
+app.use("/api", projectRouter); //
+//app.use("/api", isAuthenticated, jobRouter); //
+//app.use("/api", userRouter); 
 app.use("/auth", authRouter);
 
 
