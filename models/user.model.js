@@ -48,11 +48,11 @@ const userSchema = new Schema(
       patreon: String,
       discord: String,
     },
-    comments: [], //placeholder until i make comment model
-    upvotes: Number, //placeholder until i make a upvote model
-    favoriteProjects: [{ type: Schema.Types.ObjectId, ref: "Project" }], //placeholder until i make a favorites model
-    savedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
-    lookingForJob: Boolean,
+    comments: [], //placeholder until i make comment model, or controller route for updating it
+    upvotes: Number, //placeholder until i make a upvote model, or controller route for updating it
+    favoriteProjects: [{ type: Schema.Types.ObjectId, ref: "Project" }], //placeholder until i make a favorites model or controller route for updating it
+    savedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }], //placeholder until i make a upvote model, or controller route for updating it
+    lookingForJob: Boolean, //placeholder until i make a upvote model, or controller route for updating it
   },
   {
     timestamps: true,

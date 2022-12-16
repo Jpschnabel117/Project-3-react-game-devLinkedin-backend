@@ -16,7 +16,8 @@ const getUsersController = (req, res, next) => {
     .catch((err) => res.send(err));
 };
 
-const updateUserController = (req, res, next) => { //double check
+const updateUserController = (req, res, next) => {
+  //double check
   User.findByIdAndUpdate(
     req.payload._id,
     {
@@ -37,7 +38,7 @@ const updateUserController = (req, res, next) => { //double check
         discord: req.body.links.discord,
       },
       comments: req.body.comments,
-      upvotes: req.body.upvotes,
+      //upvotes: req.body.upvotes,// seperate controller route
       favoriteProjects: req.body.favoriteProjects,
       savedJobs: req.body.savedJobs,
       lookingForJob: req.body.lookingForJob,

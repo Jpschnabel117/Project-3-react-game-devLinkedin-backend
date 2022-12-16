@@ -46,15 +46,31 @@ const getProjectIdController = (req, res, next) => {
 
 const putProjectController = (req, res, next) => {
   //update this for new model
-  Project.findByIdAndUpdate(
-    req.params.projectId,
+  Project.findOneAndUpdate(
+    { _id: req.params.projectId, owner: req.payload._id },
     {
       title: req.body.title,
-      description: req.body.description,
+      description: {
+        short: req.body.description.short,
+        long: req.body.description.long,
+      },
+      tech: {
+        engines: req.body.tech.engines,
+        languages: req.body.tech.languages,
+      },
+      links: {
+        github: req.body.links.github,
+        steam: req.body.links.steam,
+        patreon: req.body.links.patreon,
+        discord: req.body.links.discord,
+      },
+      //comments: req.body.comments, // seperate controller route
+      //jobs seperate controller
     },
     { new: true }
   )
     .then((updatedProject) => {
+      console.log(updatedProject);
       res.send(updatedProject);
     })
     .catch((err) => res.send(err));

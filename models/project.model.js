@@ -41,10 +41,10 @@ const projectSchema = new Schema(
       patreon: String,
       discord: String,
     }, //fill with, unity etc
-    comments: [], //placeholder until i make comment model
+    comments: [], //placeholder until i make comment model, or controller route for updating it
     jobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
-    upvotes: Number, //placeholder until i make a upvote model
-    favorites: Number, //placeholder until i make a favorites model
+    upvotes: Number, //placeholder until i make a upvote model, or controller route for updating it
+    favorites: Number, //placeholder until i make a favorites model, or controller route for updating it
     hiring: Boolean,
     updated: Date,
   },
