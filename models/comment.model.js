@@ -5,7 +5,8 @@ const commentSchema = new Schema(
   {
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     comment: { type: String, maxlength: 300 },
-    project: { type: Schema.Types.ObjectId, ref: "Project" }
+    project: { type: Schema.Types.ObjectId, ref: "Project" },
+    deleted: Boolean
   },
   {
     timestamps: true,

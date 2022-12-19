@@ -42,6 +42,7 @@ const jobSchema = new Schema(
     }, //fill with, unity etc
     favorites: [{ type: Schema.Types.ObjectId, ref: "User" }], // list of users who have favorited the job
     updated: Date,
+    deleted: Boolean,
   },
   {
     timestamps: true,

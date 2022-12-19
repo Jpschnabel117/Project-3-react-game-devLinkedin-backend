@@ -1,4 +1,3 @@
-
 const Comment = require("../models/comment.model");
 const Project = require("../models/project.model");
 const User = require("../models/user.model");
@@ -23,6 +22,7 @@ const createProjectController = (req, res, next) => {
     },
     upvotes: 0,
     hiring: req.body.hiring,
+    deleted: false,
   })
     .then((createdProject) => {
       res.send(createdProject);
@@ -51,7 +51,7 @@ const putProjectController = (req, res, next) => {
   let currentDate = new Date();
   let timeStamp = currentDate.getTime();
   Project.findOneAndUpdate(
-    { _id: req.params.projectId /*, owner: req.payload._id*/ },
+    { _id: req.params.projectId },
     {
       title: req.body.title,
       description: {
@@ -85,7 +85,7 @@ const putUpdateUpvotes = (req, res, next) => {
   Project.findOneAndUpdate(
     { _id: req.params.projectId },
     {
-      upvotes: req.body.upvotes,
+      upvotes: req.body.upvotes, //maybe add here
     },
     { new: true }
   )
@@ -94,11 +94,11 @@ const putUpdateUpvotes = (req, res, next) => {
       res.send(updatedProject);
     })
     .catch((err) => res.send(err));
-}; // working
+}; // needs front end checks
 
 const putUpdateHiring = (req, res, next) => {
   Project.findOneAndUpdate(
-    { _id: req.params.projectId, owner: req.payload._id },
+    { _id: req.params.projectId },
     {
       hiring: req.body.hiring,
     },
@@ -114,15 +114,16 @@ const putUpdateHiring = (req, res, next) => {
 const deleteProjectController = (req, res, next) => {
   Project.findOneAndDelete({
     _id: req.params.projectId,
-    owner: req.payload._id,
   })
     .then((deletedProject) => {
-      if (deletedProject) {
-        console.log("successfully deleted project", deletedProject);
-      } else {
-        res.send("unauthorized to delete this project");
-      }
-      console.log(deletedProject);
+      Comment.deleteMany(
+        { project: req.params.projectId },
+      )
+        .then(() => {
+          console.log("deleted Project:", deletedProject);
+          res.send("deleted Project");
+        })
+        .catch((err) => res.send(err));
     })
     .catch((err) => res.send(err));
 }; // working
@@ -131,7 +132,7 @@ const postProjectComment = (req, res, next) => {
   Comment.create({
     owner: req.payload._id,
     comment: req.body.comment,
-    project: req.params.projectId
+    project: req.params.projectId,
   })
     // .then((newComment) => {
     //   tempcomment = newComment;
@@ -158,9 +159,9 @@ const postProjectComment = (req, res, next) => {
 
 const updateComment = (req, res, next) => {
   Comment.findOneAndUpdate(
-    { _id: req.params.commentId},
+    { _id: req.params.commentId },
     {
-      comment: req.body.comment
+      comment: req.body.comment,
     },
     { new: true }
   )
@@ -169,9 +170,28 @@ const updateComment = (req, res, next) => {
       res.send(updatedComment);
     })
     .catch((err) => res.send(err));
-}; // TODO change contents, admin can do it too
+}; // working
 
-const deleteComment = (req, res, next) => {}; // TODO
+const deleteComment = (req, res, next) => {
+  Comment.findOneAndDelete({
+    _id: req.params.commentId,
+  })
+    .then((deletedComment) => {
+      Project.findOneAndUpdate(
+        { _id: req.params.projectId },
+        {
+          $pull: { comments: deletedComment._id },
+        },
+        { new: true }
+      )
+        .then((updatedProject) => {
+          console.log(updatedProject);
+          res.send(updatedProject);
+        })
+        .catch((err) => res.send(err));
+    })
+    .catch((err) => res.send(err));
+}; // working
 
 module.exports = {
   createProjectController,

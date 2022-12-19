@@ -21,11 +21,11 @@ router.get("/projects", getProjectController); //working
 router.get("/projects/:projectId", getProjectIdController); //working
 
 router.put("/projects/:projectId", isAuthenticated, isProjectOwner, putProjectController); //working
-router.put("/projects/:projectId/upvote", isAuthenticated, putUpdateUpvotes);
-router.put("/projects/:projectId/hiring", isAuthenticated, putUpdateHiring);
+router.put("/projects/:projectId/upvote", isAuthenticated, putUpdateUpvotes); //needs front end checks i think
+router.put("/projects/:projectId/hiring", isAuthenticated, isProjectOwner, putUpdateHiring); //working
 router.put("/projects/:projectId/comment/:commentId", isAuthenticated, isCommentOwner, updateComment); //working
 
-router.delete("/projects/:projectId/comment/:commentId", isAuthenticated, deleteComment);
-router.delete("/projects/:projectId", isAuthenticated, deleteProjectController);
+router.delete("/projects/:projectId/comment/:commentId", isAuthenticated,isCommentOwner, deleteComment);//working
+router.delete("/projects/:projectId", isAuthenticated, isProjectOwner, deleteProjectController);//working
 
 module.exports = router;

@@ -46,6 +46,7 @@ const projectSchema = new Schema(
     upvotes: Number, //placeholder until i make a upvote model, or controller route for updating it
     hiring: Boolean,
     updated: String,
+    deleted: Boolean,
   },
   {
     timestamps: true,
