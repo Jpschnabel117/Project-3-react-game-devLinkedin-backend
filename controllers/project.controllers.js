@@ -127,11 +127,11 @@ const deleteProjectController = (req, res, next) => {
     .catch((err) => res.send(err));
 }; // working
 
-let tempcomment;
 const postProjectComment = (req, res, next) => {
   Comment.create({
     owner: req.payload._id,
     comment: req.body.comment,
+    project: req.params.projectId
   })
     // .then((newComment) => {
     //   tempcomment = newComment;
@@ -145,7 +145,6 @@ const postProjectComment = (req, res, next) => {
       return Project.findOneAndUpdate(
         {
           _id: req.params.projectId,
-          //owner: req.payload._id,
         },
         { $addToSet: { comments: newComment._id } },
         { new: true }
@@ -155,9 +154,23 @@ const postProjectComment = (req, res, next) => {
       res.send(updatedProject);
     })
     .catch((err) => console.log(err));
-}; // kinda working
+}; // working
 
-const updateComment = (req, res, next) => {}; // TODO change contents, admin can do it too
+const updateComment = (req, res, next) => {
+  Comment.findOneAndUpdate(
+    { _id: req.params.commentId},
+    {
+      comment: req.body.comment
+    },
+    { new: true }
+  )
+    .then((updatedComment) => {
+      console.log(updatedComment);
+      res.send(updatedComment);
+    })
+    .catch((err) => res.send(err));
+}; // TODO change contents, admin can do it too
+
 const deleteComment = (req, res, next) => {}; // TODO
 
 module.exports = {
