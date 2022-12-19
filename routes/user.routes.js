@@ -6,7 +6,6 @@ const {
   updateUserController,
   deleteUserController,
   updateUserUpvotedController,
-  updateUserCommentsController,
   updateUserFavorites,
   updateUserJobs,
 } = require("../controllers/user.controllers");
@@ -20,7 +19,6 @@ router.get("/users", getUsersController);
 
 router.put("/user", isAuthenticated, updateUserController);
 router.put("/user/upvoted", isAuthenticated,updateUserUpvotedController);
-router.put("/user/comments",isAuthenticated, updateUserCommentsController);
 router.put("/user/favorites",isAuthenticated, updateUserFavorites);
 router.put("/user/jobs", isAuthenticated,updateUserJobs);
 // add dms in the future

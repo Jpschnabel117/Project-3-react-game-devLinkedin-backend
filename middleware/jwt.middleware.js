@@ -18,6 +18,13 @@ function getTokenFromHeaders(req) {
   return null;
 }
 
+const isAdmin = (req, res, next) => {
+  return req.payload.isadmin
+};
+
+//maybe add middlewares for owner checks
+
 module.exports = {
   isAuthenticated,
+  isAdmin,
 };

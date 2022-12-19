@@ -133,21 +133,21 @@ const postProjectComment = (req, res, next) => {
     owner: req.payload._id,
     comment: req.body.comment,
   })
+    // .then((newComment) => {
+    //   tempcomment = newComment;
+    //   return User.findOneAndUpdate(
+    //     { _id: req.payload._id },
+    //     { $addToSet: { comments: newComment._id } },
+    //     { new: true }
+    //   );
+    // })
     .then((newComment) => {
-      tempcomment = newComment;
-      return User.findOneAndUpdate(
-        { _id: req.payload._id },
-        { $addToSet: { comments: newComment._id } },
-        { new: true }
-      );
-    })
-    .then(() => {
       return Project.findOneAndUpdate(
         {
           _id: req.params.projectId,
-          owner: req.payload._id,
+          //owner: req.payload._id,
         },
-        { $addToSet: { comments: tempcomment._id } },
+        { $addToSet: { comments: newComment._id } },
         { new: true }
       );
     })
@@ -157,6 +157,8 @@ const postProjectComment = (req, res, next) => {
     .catch((err) => console.log(err));
 }; // kinda working
 
+const updateComment = (req,res,next) => { } // TODO change contents, admin can do it too
+const deleteComment = (req,res,next) => { } // TODO
 
 
 module.exports = {
@@ -168,4 +170,6 @@ module.exports = {
   putUpdateUpvotes,
   putUpdateHiring,
   postProjectComment,
+  updateComment,
+  deleteComment
 };

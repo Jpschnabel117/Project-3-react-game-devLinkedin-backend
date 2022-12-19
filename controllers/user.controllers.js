@@ -62,20 +62,20 @@ const updateUserUpvotedController = (req, res, next) => {
     .catch((err) => res.send(err));
 }; // working
 
-const updateUserCommentsController = (req, res, next) => {
-  User.findOneAndUpdate(
-    { _id: req.payload._id },
-    {
-      comments: req.body.comments,
-    },
-    { new: true }
-  )
-    .then((updatedProject) => {
-      console.log(updatedProject);
-      res.send(updatedProject);
-    })
-    .catch((err) => res.send(err));
-}; // TODO
+// const updateUserCommentsController = (req, res, next) => {
+//   User.findOneAndUpdate(
+//     { _id: req.payload._id },
+//     {
+//       comments: req.body.comments,
+//     },
+//     { new: true }
+//   )
+//     .then((updatedProject) => {
+//       console.log(updatedProject);
+//       res.send(updatedProject);
+//     })
+//     .catch((err) => res.send(err));
+// }; 
 
 const updateUserFavorites = (req, res, next) => {}; // TODO
 
@@ -89,7 +89,6 @@ module.exports = {
   updateUserController,
   deleteUserController,
   updateUserUpvotedController,
-  updateUserCommentsController,
   updateUserFavorites,
   updateUserJobs,
 };
