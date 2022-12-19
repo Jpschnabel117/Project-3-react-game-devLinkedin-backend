@@ -1,6 +1,7 @@
 const { expressjwt: jwt } = require("express-jwt");
 const Comment = require("../models/comment.model");
 const Project = require("../models/project.model");
+const User = require("../models/user.model");
 
 const isAuthenticated = jwt({
   secret: process.env.TOKEN_SECRET,
@@ -29,7 +30,6 @@ const isProjectOwner = (req, res, next) => {
         next();
       } else {
         //pop up model
-        console.log(req.payload.isadmin)
         console.log("oh no")
         res.send("not project owner or admin")
       }
@@ -38,6 +38,7 @@ const isProjectOwner = (req, res, next) => {
       console.log(err);
     });
 };
+
 
 const isCommentOwner = (req, res, next) => {
   Comment.findById(req.params.commentId)

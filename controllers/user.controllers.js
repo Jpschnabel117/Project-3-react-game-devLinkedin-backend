@@ -1,3 +1,5 @@
+const Job = require("../models/job.model");
+const Project = require("../models/project.model");
 const User = require("../models/user.model");
 
 const getUserIdController = (req, res, next) => {
@@ -47,48 +49,121 @@ const updateUserController = (req, res, next) => {
     .catch((err) => res.send(err));
 }; // working
 
-const updateUserUpvotedController = (req, res, next) => {
+const getUpvotedListController = (req, res, next) => {
+  User.findOne({ _id: req.payload._id })
+    .then((foundUser) => {
+      res.send(foundUser.upvoted);
+    })
+    .catch((err) => res.send(err));
+}; // working
+const addToUpvotedController = (req, res, next) => {
   User.findOneAndUpdate(
     { _id: req.payload._id },
     {
-      upvoted: req.body.upvoted,
+      $addToSet: { upvoted: req.params.projectId }, //name of project, to not allow double votes, might need
     },
     { new: true }
   )
-    .then((updatedProject) => {
-      console.log(updatedProject);
-      res.send(updatedProject);
+    .then((updatedUser) => {
+      console.log(updatedUser.upvoted);
+      res.send(updatedUser.upvoted);
+    })
+    .catch((err) => res.send(err));
+}; // working
+const deleteFromUpvotedController = (req, res, next) => {
+  User.findOneAndUpdate(
+    { _id: req.payload._id },
+    {
+      $pull: { upvoted: req.params.projectId },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      console.log(updatedUser.upvoted);
+      res.send(updatedUser.upvoted);
     })
     .catch((err) => res.send(err));
 }; // working
 
-// const updateUserCommentsController = (req, res, next) => {
-//   User.findOneAndUpdate(
-//     { _id: req.payload._id },
-//     {
-//       comments: req.body.comments,
-//     },
-//     { new: true }
-//   )
-//     .then((updatedProject) => {
-//       console.log(updatedProject);
-//       res.send(updatedProject);
-//     })
-//     .catch((err) => res.send(err));
-// }; 
+const getUserFavorites = (req, res, next) => {
+  User.findOne({ _id: req.payload._id })
+    .then((foundUser) => {
+      res.send(foundUser.favoriteProjects);
+    })
+    .catch((err) => res.send(err));
+}; // working
+const addToUserFavorites = (req, res, next) => {
+  User.findOneAndUpdate(
+    { _id: req.payload._id },
+    {
+      $addToSet: { favoriteProjects: req.params.projectId },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      console.log(updatedUser.favoriteProjects);
+      res.send(updatedUser.favoriteProjects);
+    })
+    .catch((err) => res.send(err));
+}; // working
+const deleteFromUserFavorites = (req, res, next) => {
+  User.findOneAndUpdate(
+    { _id: req.payload._id },
+    {
+      $pull: { favoriteProjects: req.params.projectId },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      console.log(updatedUser.favoriteProjects);
+      res.send(updatedUser.favoriteProjects);
+    })
+    .catch((err) => res.send(err));
+}; // working
 
-const updateUserFavorites = (req, res, next) => {}; // TODO
+const getUserSavedJobs = (req, res, next) => {}; // TODO
+const addToUserSavedJobs = (req, res, next) => {}; // TODO
+const deleteFromUserSavedJobs = (req, res, next) => {}; // TODO
 
-const updateUserJobs = (req, res, next) => {}; // TODO
-
-const deleteUserController = (req, res, next) => {}; // TODO
+const deleteUserController = (req, res, next) => {
+  if (req.payload.isadmin || req.payload._id === req.params.userId) {
+    User.findOneAndDelete({
+      _id: req.payload._id,
+    })
+      .then(() => {
+        return Comment.deleteMany({ owner: req.params.userId });
+      })
+      .then(() => {
+        console.log("user comments deleted")
+        return Project.deleteMany({ owner: req.params.userId });
+      })
+      .then(() => {
+        console.log("user projects deleted")
+        return Job.deleteMany({ owner: req.params.userId });
+      })
+      .then( () => {
+        console.log("user jobs deleted")
+        res.send("user deleted")
+      })
+      .catch((err) => res.send(err));
+  }
+}; // test it
 
 module.exports = {
   getUserIdController,
   getUsersController,
   updateUserController,
   deleteUserController,
-  updateUserUpvotedController,
-  updateUserFavorites,
-  updateUserJobs,
+
+  getUpvotedListController,
+  addToUpvotedController,
+  deleteFromUpvotedController,
+
+  getUserFavorites,
+  addToUserFavorites,
+  deleteFromUserFavorites,
+
+  getUserSavedJobs,
+  addToUserSavedJobs,
+  deleteFromUserSavedJobs,
 };

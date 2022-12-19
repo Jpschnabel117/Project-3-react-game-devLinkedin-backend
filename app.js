@@ -23,9 +23,10 @@ app.use(
 
 app.use(express.json());
 
+app.use("/api", userRouter);
 app.use("/api", projectRouter); //
 //app.use("/api", isAuthenticated, jobRouter); //
-app.use("/api", userRouter);
+
 app.use("/auth", authRouter);
 
 mongoose

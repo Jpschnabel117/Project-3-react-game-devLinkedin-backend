@@ -1,4 +1,5 @@
 const Comment = require("../models/comment.model");
+const Job = require("../models/job.model");
 const Project = require("../models/project.model");
 const User = require("../models/user.model");
 
@@ -97,10 +98,13 @@ const putUpdateUpvotes = (req, res, next) => {
 }; // needs front end checks
 
 const putUpdateHiring = (req, res, next) => {
+  let currentDate = new Date();
+  let timeStamp = currentDate.getTime();
   Project.findOneAndUpdate(
     { _id: req.params.projectId },
     {
       hiring: req.body.hiring,
+      updated: timeStamp,
     },
     { new: true }
   )
@@ -115,15 +119,16 @@ const deleteProjectController = (req, res, next) => {
   Project.findOneAndDelete({
     _id: req.params.projectId,
   })
-    .then((deletedProject) => {
-      Comment.deleteMany(
-        { project: req.params.projectId },
-      )
-        .then(() => {
-          console.log("deleted Project:", deletedProject);
-          res.send("deleted Project");
-        })
-        .catch((err) => res.send(err));
+    .then(() => {
+      return Comment.deleteMany({ project: req.params.projectId });
+    })
+    .then(() => {
+      console.log("comments deleted");
+      return Job.deleteMany({ project: req.params.projectId });
+    })
+    .then(() => {
+      console.log("jobs deleted");
+      res.send("deleted Project");
     })
     .catch((err) => res.send(err));
 }; // working

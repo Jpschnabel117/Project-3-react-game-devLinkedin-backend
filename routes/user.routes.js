@@ -5,24 +5,59 @@ const {
   getUsersController,
   updateUserController,
   deleteUserController,
-  updateUserUpvotedController,
-  updateUserFavorites,
-  updateUserJobs,
+
+  getUpvotedListController,
+  addToUpvotedController,
+  deleteFromUpvotedController,
+
+  getUserFavorites,
+  addToUserFavorites,
+  deleteFromUserFavorites,
+
+  getUserSavedJobs,
+  addToUserSavedJobs,
+  deleteFromUserSavedJobs,
 } = require("../controllers/user.controllers");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 const router = express.Router();
 
-
 router.get("/user/:userId", getUserIdController);
 router.get("/users", getUsersController);
+router.get("/user//upvotedlist", isAuthenticated, getUpvotedListController);
+router.get("/user//favoriteslist", isAuthenticated, getUserFavorites);
+router.get("/user//savedjobs", isAuthenticated, getUserSavedJobs);
 
 router.put("/user", isAuthenticated, updateUserController);
-router.put("/user/upvoted", isAuthenticated,updateUserUpvotedController);
-router.put("/user/favorites",isAuthenticated, updateUserFavorites);
-router.put("/user/jobs", isAuthenticated,updateUserJobs);
+
+router.post(
+  "/user/addupvoted/:projectId",
+  isAuthenticated,
+  addToUpvotedController
+);
+router.post(
+  "/user/addfavoriteproject/:projectId",
+  isAuthenticated,
+  addToUserFavorites
+);
+router.post("/user/addsavedjob", isAuthenticated, addToUserSavedJobs);
 // add dms in the future
 
-router.delete("/user/:userId", isAuthenticated, deleteUserController)
+router.delete(
+  "/user/deleteupvoted/:projectId",
+  isAuthenticated,
+  deleteFromUpvotedController
+);
+router.delete(
+  "/user/deletefavoritedproject/:projectId",
+  isAuthenticated,
+  deleteFromUserFavorites
+);
+router.delete(
+  "/user/:userId/deletesavedjob/:jobId",
+  isAuthenticated,
+  deleteFromUserSavedJobs
+);
+router.delete("/user/:userId", isAuthenticated, deleteUserController);
 
 module.exports = router;

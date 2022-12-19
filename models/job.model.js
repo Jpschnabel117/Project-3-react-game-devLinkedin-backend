@@ -34,13 +34,8 @@ const jobSchema = new Schema(
       },
     },
     owner: { type: Schema.Types.ObjectId, ref: "User" },
-    links: {
-      github: String, //regex all of these eventually, to make sure they go to the right website
-      steam: String,
-      patreon: String,
-      discord: String,
-    }, //fill with, unity etc
-    favorites: [{ type: Schema.Types.ObjectId, ref: "User" }], // list of users who have favorited the job
+    project: { type: Schema.Types.ObjectId, ref: "Project" },
+    savedUsers: [{ type: Schema.Types.ObjectId, ref: "User" }], // list of users who have saved the job
     updated: Date,
     deleted: Boolean,
   },
@@ -49,6 +44,6 @@ const jobSchema = new Schema(
   }
 );
 
-const Job = mongoose.model("Project", jobSchema);
+const Job = mongoose.model("Job", jobSchema);
 
 module.exports = Job;
