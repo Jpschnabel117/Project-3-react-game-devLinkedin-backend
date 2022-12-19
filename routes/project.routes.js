@@ -12,7 +12,7 @@ const {
   updateComment,
   deleteComment
 } = require("../controllers/project.controllers");
-const { isAuthenticated } = require("../middleware/jwt.middleware");
+const { isAuthenticated, isProjectOwner } = require("../middleware/jwt.middleware");
 
 router.post("/projects", isAuthenticated, createProjectController);
 router.post("/projects/:projectId/comment", isAuthenticated, postProjectComment);
@@ -20,7 +20,7 @@ router.post("/projects/:projectId/comment", isAuthenticated, postProjectComment)
 router.get("/projects", getProjectController);
 router.get("/projects/:projectId", getProjectIdController);
 
-router.put("/projects/:projectId", isAuthenticated, putProjectController);
+router.put("/projects/:projectId", isAuthenticated, isProjectOwner, putProjectController);
 router.put("/projects/:projectId/upvote", isAuthenticated, putUpdateUpvotes);
 router.put("/projects/:projectId/hiring", isAuthenticated, putUpdateHiring);
 router.put("/projects/:projectId/comment/:commentId", isAuthenticated, updateComment);

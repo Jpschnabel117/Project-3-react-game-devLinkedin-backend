@@ -1,4 +1,6 @@
 const { expressjwt: jwt } = require("express-jwt");
+const Project = require("../models/project.model");
+
 
 const isAuthenticated = jwt({
   secret: process.env.TOKEN_SECRET,
@@ -18,13 +20,28 @@ function getTokenFromHeaders(req) {
   return null;
 }
 
-const isAdmin = (req, res, next) => {
-  return req.payload.isadmin
+
+const isProjectOwner = (req, res, next) => {
+  Project.findById(req.params.projectId)
+    .then((foundProject) => {
+      if ((String(foundProject.owner) === req.payload._id) || req.payload.isadmin) {
+        console.log(req.payload.isadmin)
+        next();
+      } else {
+        //pop up model
+        console.log(req.payload.isadmin)
+        console.log("oh no")
+        res.send("not owner or admin")
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 //maybe add middlewares for owner checks
 
 module.exports = {
   isAuthenticated,
-  isAdmin,
+  isProjectOwner,
 };

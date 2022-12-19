@@ -53,7 +53,7 @@ const userSchema = new Schema(
     favoriteProjects: [{ type: Schema.Types.ObjectId, ref: "Project" }], //placeholder until i make a favorites model or controller route for updating it
     savedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }], //placeholder until i make a upvote model, or controller route for updating it
     lookingForJob: Boolean, //placeholder until i make a upvote model, or controller route for updating it
-    isadmin: false
+    isadmin: Boolean
   },
   {
     timestamps: true,

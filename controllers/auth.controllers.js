@@ -16,7 +16,6 @@ const signupController = (req, res, next) => {
   bcryptjs
     .hash(req.body.password, 10)
     .then((hashedpassword) => {
-      console.log("made it here");
       return User.create({
         email: req.body.email,
         password: hashedpassword,

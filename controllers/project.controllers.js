@@ -1,3 +1,4 @@
+
 const Comment = require("../models/comment.model");
 const Project = require("../models/project.model");
 const User = require("../models/user.model");
@@ -50,7 +51,7 @@ const putProjectController = (req, res, next) => {
   let currentDate = new Date();
   let timeStamp = currentDate.getTime();
   Project.findOneAndUpdate(
-    { _id: req.params.projectId, owner: req.payload._id },
+    { _id: req.params.projectId /*, owner: req.payload._id*/ },
     {
       title: req.body.title,
       description: {
@@ -128,7 +129,6 @@ const deleteProjectController = (req, res, next) => {
 
 let tempcomment;
 const postProjectComment = (req, res, next) => {
-
   Comment.create({
     owner: req.payload._id,
     comment: req.body.comment,
@@ -151,15 +151,14 @@ const postProjectComment = (req, res, next) => {
         { new: true }
       );
     })
-    .then(updatedProject => {
-      res.send(updatedProject)
+    .then((updatedProject) => {
+      res.send(updatedProject);
     })
     .catch((err) => console.log(err));
 }; // kinda working
 
-const updateComment = (req,res,next) => { } // TODO change contents, admin can do it too
-const deleteComment = (req,res,next) => { } // TODO
-
+const updateComment = (req, res, next) => {}; // TODO change contents, admin can do it too
+const deleteComment = (req, res, next) => {}; // TODO
 
 module.exports = {
   createProjectController,
@@ -171,5 +170,5 @@ module.exports = {
   putUpdateHiring,
   postProjectComment,
   updateComment,
-  deleteComment
+  deleteComment,
 };
