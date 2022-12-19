@@ -7,11 +7,13 @@ const {
   putProjectController,
   deleteProjectController,
   putUpdateUpvotes,
-  putUpdateHiring
+  putUpdateHiring,
+  postProjectComment
 } = require("../controllers/project.controllers");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 router.post("/projects", isAuthenticated, createProjectController);
+router.post("/projects/:projectId/comment", isAuthenticated, postProjectComment);
 
 router.get("/projects", getProjectController);
 router.get("/projects/:projectId", getProjectIdController);

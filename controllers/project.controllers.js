@@ -1,4 +1,6 @@
+const Comment = require("../models/comment.model");
 const Project = require("../models/project.model");
+const User = require("../models/user.model");
 
 const createProjectController = (req, res, next) => {
   Project.create({
@@ -124,6 +126,39 @@ const deleteProjectController = (req, res, next) => {
     .catch((err) => res.send(err));
 }; // working
 
+let tempcomment;
+const postProjectComment = (req, res, next) => {
+
+  Comment.create({
+    owner: req.payload._id,
+    comment: req.body.comment,
+  })
+    .then((newComment) => {
+      tempcomment = newComment;
+      return User.findOneAndUpdate(
+        { _id: req.payload._id },
+        { $addToSet: { comments: newComment._id } },
+        { new: true }
+      );
+    })
+    .then(() => {
+      return Project.findOneAndUpdate(
+        {
+          _id: req.params.projectId,
+          owner: req.payload._id,
+        },
+        { $addToSet: { comments: tempcomment._id } },
+        { new: true }
+      );
+    })
+    .then(updatedProject => {
+      res.send(updatedProject)
+    })
+    .catch((err) => console.log(err));
+}; // kinda working
+
+
+
 module.exports = {
   createProjectController,
   getProjectController,
@@ -132,4 +167,5 @@ module.exports = {
   deleteProjectController,
   putUpdateUpvotes,
   putUpdateHiring,
+  postProjectComment,
 };
