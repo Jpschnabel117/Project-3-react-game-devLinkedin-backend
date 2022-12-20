@@ -33,6 +33,7 @@ const createProjectController = (req, res, next) => {
 
 const getProjectController = (req, res, next) => {
   Project.find()
+    //.populate("owner")
     .then((foundProjectsArray) => {
       res.send(foundProjectsArray);
     })
