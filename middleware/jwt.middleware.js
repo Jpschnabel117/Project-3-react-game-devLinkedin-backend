@@ -35,6 +35,7 @@ const isProjectOwner = (req, res, next) => {
       }
     })
     .catch((err) => {
+      console.log(req.payload._id)
       console.log(err);
     });
 };
@@ -48,6 +49,7 @@ const isCommentOwner = (req, res, next) => {
         next();
       } else {
         //pop up model
+        console.log("not comment owner or admin");
         res.send("not comment owner or admin")
       }
     })

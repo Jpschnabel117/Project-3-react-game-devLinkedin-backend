@@ -60,7 +60,7 @@ const loginController = (req, res, next) => {
 
       const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
         algorithm: "HS256",
-        expiresIn: "100h", //
+        expiresIn: "30d", //
       });
 
       res.json({

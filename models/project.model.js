@@ -3,14 +3,15 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema(
   {
+    projectImage: String,
     title: {
       type: String,
       required: true,
       unique: true,
     },
     description: {
-      short: String,
-      long: String,
+      short: { type: String, required: true },
+      long: { type: String, required: true },
     },
     tech: {
       engines: {
