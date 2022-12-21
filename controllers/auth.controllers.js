@@ -20,6 +20,26 @@ const signupController = (req, res, next) => {
         email: req.body.email,
         password: hashedpassword,
         displayName: req.body.displayName,
+        description: {
+          short: "",
+          long: "",
+        },
+        tech: {
+          engines: [],
+          languages: [],
+        },
+        links: {
+          github: "",
+          steam: "",
+          patreon: "",
+          discord: "",
+        },
+        lookingForJob: false,
+        isadmin: false,
+        deleted: false,
+        favoriteProjects: [],
+        savedJobs: [],
+        upvoted: [],
       });
     })
     .then((createdUser) => {
@@ -55,7 +75,7 @@ const loginController = (req, res, next) => {
         _id: myUser._id,
         displayName: myUser.displayName,
         email: myUser.email,
-        isadmin: myUser.isadmin
+        isadmin: myUser.isadmin,
       };
 
       const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
@@ -74,7 +94,3 @@ module.exports = {
   signupController,
   loginController,
 };
-
-
-
-

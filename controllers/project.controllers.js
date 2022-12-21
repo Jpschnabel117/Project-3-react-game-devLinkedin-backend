@@ -33,7 +33,7 @@ const createProjectController = (req, res, next) => {
 
 const getProjectController = (req, res, next) => {
   Project.find()
-    //.populate("owner")
+  .populate("owner")
     .then((foundProjectsArray) => {
       res.send(foundProjectsArray);
     })
@@ -42,6 +42,10 @@ const getProjectController = (req, res, next) => {
 
 const getProjectIdController = (req, res, next) => {
   Project.findById(req.params.projectId)
+    .populate('owner')
+    .populate(
+      {path: "comments", 
+      populate: {path: "owner"} })
     .then((foundProject) => {
       res.send(foundProject);
     })
@@ -138,7 +142,7 @@ const postProjectComment = (req, res, next) => {
   Comment.create({
     owner: req.payload._id,
     comment: req.body.comment,
-    project: req.params.projectId,
+    project: req.body.project,
   })
     // .then((newComment) => {
     //   tempcomment = newComment;

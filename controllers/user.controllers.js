@@ -147,7 +147,7 @@ const deleteUserController = (req, res, next) => {
       })
       .catch((err) => res.send(err));
   }
-}; // test it
+}; // NOT CURRENTLY DELETING USERS COMMENTS AND PROJECTS
 
 module.exports = {
   getUserIdController,
