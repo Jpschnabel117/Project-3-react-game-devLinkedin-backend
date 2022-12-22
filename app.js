@@ -30,7 +30,7 @@ app.use("/api", projectRouter); //
 app.use("/auth", authRouter);
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URL)
   .then((x) => {
     console.log("connected to db: ", x.connections[0].name);
     app.listen(port, () => console.log("server started on port: " + port));
