@@ -76,6 +76,7 @@ const loginController = (req, res, next) => {
         displayName: myUser.displayName,
         email: myUser.email,
         isadmin: myUser.isadmin,
+        upvoted: myUser.upvoted
       };
 
       const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {

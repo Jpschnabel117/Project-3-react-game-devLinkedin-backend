@@ -30,7 +30,7 @@ router.get("/user//savedjobs", isAuthenticated, getUserSavedJobs);
 
 router.put("/user", isAuthenticated, updateUserController);
 
-router.post(
+router.put(
   "/user/addupvoted/:projectId",
   isAuthenticated,
   addToUpvotedController
