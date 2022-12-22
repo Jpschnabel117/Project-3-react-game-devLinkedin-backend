@@ -21,36 +21,40 @@ function getTokenFromHeaders(req) {
   return null;
 }
 
-
 const isProjectOwner = (req, res, next) => {
   Project.findById(req.params.projectId)
     .then((foundProject) => {
-      if ((String(foundProject.owner) === req.payload._id) || req.payload.isadmin) {
-        console.log(req.payload.isadmin)
+      if (
+        String(foundProject.owner) === req.payload._id ||
+        req.payload.isadmin
+      ) {
+        console.log(req.payload.isadmin);
         next();
       } else {
         //pop up model
-        console.log("oh no")
-        res.send("not project owner or admin")
+        console.log("oh no");
+        res.send("not project owner or admin");
       }
     })
     .catch((err) => {
-      console.log(req.payload._id)
+      console.log(req.payload._id);
       console.log(err);
     });
 };
-
 
 const isCommentOwner = (req, res, next) => {
   Comment.findById(req.params.commentId)
     .then((foundComment) => {
-      if ((String(foundComment.owner) === req.payload._id) || req.payload.isadmin) {
-        console.log(foundComment)
+      if (
+        String(foundComment.owner) === req.payload._id ||
+        req.payload.isadmin
+      ) {
+        console.log(foundComment);
         next();
       } else {
         //pop up model
         console.log("not comment owner or admin");
-        res.send("not comment owner or admin")
+        res.send("not comment owner or admin");
       }
     })
     .catch((err) => {
@@ -58,10 +62,8 @@ const isCommentOwner = (req, res, next) => {
     });
 };
 
-
-
 module.exports = {
   isAuthenticated,
   isProjectOwner,
-  isCommentOwner
+  isCommentOwner,
 };

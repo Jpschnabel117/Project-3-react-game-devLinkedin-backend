@@ -1,0 +1,50 @@
+Date : 2022-12-22 13:12:55
+Directory : c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend
+Total : 19 files,  6084 codes, 59 comments, 99 blanks, all 6242 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |      5,252 |          0 |          2 |      5,254 |
+| JavaScript |         16 |        831 |         59 |         96 |        986 |
+| Markdown   |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                           | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                              |         19 |      6,084 |         59 |         99 |      6,242 |
+| controllers                                                                                                                                    |          4 |        440 |         13 |         34 |        487 |
+| db                                                                                                                                             |          2 |         32 |         38 |          7 |         77 |
+| middleware                                                                                                                                     |          1 |         62 |          2 |          6 |         70 |
+| models                                                                                                                                         |          4 |        179 |          1 |         16 |        196 |
+| routes                                                                                                                                         |          4 |         92 |          2 |         23 |        117 |
++------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                                       | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\README.md                          | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\app.js                             | JavaScript |         26 |          3 |         10 |         39 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\controllers\auth.controllers.js    | JavaScript |         88 |          1 |          9 |         98 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\controllers\job.controllers.js     | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\controllers\project.controllers.js | JavaScript |        195 |         11 |         12 |        218 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\controllers\user.controllers.js    | JavaScript |        157 |          1 |         12 |        170 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\db\seed.js                         | JavaScript |          0 |         38 |          4 |         42 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\db\userseed.js                     | JavaScript |         32 |          0 |          3 |         35 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\middleware\jwt.middleware.js       | JavaScript |         62 |          2 |          6 |         70 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\models\comment.model.js            | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\models\job.model.js                | JavaScript |         46 |          0 |          4 |         50 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\models\project.model.js            | JavaScript |         56 |          0 |          4 |         60 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\models\user.model.js               | JavaScript |         62 |          1 |          4 |         67 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\package-lock.json                  | JSON       |      5,218 |          0 |          1 |      5,219 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\package.json                       | JSON       |         34 |          0 |          1 |         35 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\routes\auth.routes.js              | JavaScript |         14 |          1 |          5 |         20 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\routes\job.routes.js               | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\routes\project.routes.js           | JavaScript |         26 |          0 |          6 |         32 |
+| c:\Users\Jan Paul Schnabel\Desktop\Ironhack non-onedrive\Project 3\Project-3-react-game-devLinkedin-backend\routes\user.routes.js              | JavaScript |         52 |          1 |         11 |         64 |
+| Total                                                                                                                                          |            |      6,084 |         59 |         99 |      6,242 |
++------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
