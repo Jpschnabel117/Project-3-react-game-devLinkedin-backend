@@ -8,4 +8,3 @@ Users can also post comments on projects.
 
 This repository contains the code for the server-side of the platform. It handles the database connections, user authentication, and the API endpoints for creating and retrieving user, project, and comment data.
 
-We hope this platform helps indie developers connect and collaborate with one another. Happy coding!
