@@ -15,11 +15,7 @@ const app = express();
 
 const port = process.env.PORT;
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
@@ -30,7 +26,7 @@ app.use("/api", projectRouter); //
 app.use("/auth", authRouter);
 
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(process.env.MONGODB_URI)
   .then((x) => {
     console.log("connected to db: ", x.connections[0].name);
     app.listen(port, () => console.log("server started on port: " + port));
